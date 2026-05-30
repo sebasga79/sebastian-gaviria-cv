@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting</title>
+    <script>
+      var segmentCount = 1;
+      var locationParts = window.location;
+      var basePath = locationParts.pathname.split("/").slice(0, 1 + segmentCount).join("/");
+      var routePath = locationParts.pathname
+        .slice(1)
+        .split("/")
+        .slice(segmentCount)
+        .join("/")
+        .replace(/&/g, "~and~");
+      var query = locationParts.search ? "&" + locationParts.search.slice(1).replace(/&/g, "~and~") : "";
+      locationParts.replace(
+        locationParts.protocol +
+          "//" +
+          locationParts.hostname +
+          (locationParts.port ? ":" + locationParts.port : "") +
+          basePath +
+          "/?/" +
+          routePath +
+          query +
+          locationParts.hash,
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
